@@ -5,7 +5,6 @@
 
 # -------- Imports --------
 
-# import config
 from actor import ControllableActor
 
 

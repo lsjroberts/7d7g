@@ -5,23 +5,10 @@
 
 # -------- Imports --------
 
-import config
-from actor import MoveableActor, ConversationalActor, EmotionalActor
+from actor import MoveableActor
 
 
 # ----------- NPC -----------
 # Abstract NPC
 class NPC( MoveableActor ):
-	pass
-
-
-# ----------- Conversational NPC -----------
-# NPC with whom the player can converse.
-class ConversationalNPC( NPC, ConversationalActor ):
-	pass
-
-
-# ----------- Emotional NPC -----------
-# NPC who can react emotionally to the player.
-class EmotionalNPC( NPC, EmotionalActor ):
 	pass
