@@ -113,5 +113,5 @@ class Bullet( Actor ):
 	def update( self, frameTime, lifeTime ):
 		self.vector.add( self.moveVector )
 
-		if self.vector.y < 0:
+		if self.vector.y < 0 - self.sprite.rect.height:
 			self.sprite.kill()

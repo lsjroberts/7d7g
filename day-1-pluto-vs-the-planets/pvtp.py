@@ -11,6 +11,7 @@ import app.config as config
 config.title = "Pluto vs The Planets - 7d7g"
 config.settings['screen_w'] = 1200
 config.settings['screen_h'] = 900
+config.settings['game_w'] = 1600
 
 # Initialise pygame
 import pygame

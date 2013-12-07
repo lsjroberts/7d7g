@@ -10,7 +10,7 @@ from app.vector import Vector
 from game.scene.scrolling import VerticalScrollingScene
 from game.scene.timing import TimingScene
 from game.actor.pluto import Pluto
-from game.actor.grunt import SquareFormation, DiamondFormation, DirectionMovePattern
+from game.actor.grunt import SquareFormation, DiamondFormation, SpiralFormation, DirectionMovePattern
 
 # ----------- Mars Scene -----------
 # 
@@ -39,10 +39,19 @@ class Space( VerticalScrollingScene, TimingScene ):
 		def addDiamond(data):
 			DiamondFormation( data['num'], data['vector'], DirectionMovePattern(data['moveVector']) )
 
-		self.addTimingCallback( 2, addSquare, {'num': 9,  'vector': Vector(100, -100), 'moveVector': Vector(1,2)} )
-		self.addTimingCallback( 4, addSquare, {'num': 16, 'vector': Vector(900, -200), 'moveVector': Vector(-2,2)} )
-		self.addTimingCallback( 4, addDiamond, {'num': 9,  'vector': Vector(300, -100), 'moveVector': Vector(0,2)} )
-		self.addTimingCallback( 7, addDiamond, {'num': 25,  'vector': Vector(400, -300), 'moveVector': Vector(0,2)} )
+		def addSpiral(data):
+			SpiralFormation( data['num'], data['vector'], DirectionMovePattern(data['moveVector']) )
+
+
+		w = config.settings['game_w']
+
+		self.addTimingCallback( 2, addSquare,  {'num':  9, 'vector': Vector(.1*w, -100), 'moveVector': Vector(1,2)} )
+		self.addTimingCallback( 4, addDiamond, {'num': 16, 'vector': Vector(.9*w, -200), 'moveVector': Vector(-2,2)} )
+		self.addTimingCallback( 4, addSquare,  {'num':  9, 'vector': Vector(.3*w, -100), 'moveVector': Vector(0,2)} )
+		self.addTimingCallback( 7, addSpiral,  {'num': 30, 'vector': Vector(.4*w, -300), 'moveVector': Vector(0,2)} )
+		self.addTimingCallback( 15, addSquare, {'num': 90, 'vector': Vector(.4*w, -400), 'moveVector': Vector(0,4)} )
+		self.addTimingCallback( 20, addSpiral, {'num': 30, 'vector': Vector(.2*w, -300), 'moveVector': Vector(0,2)} )
+		self.addTimingCallback( 20, addSpiral, {'num': 30, 'vector': Vector(.8*w, -300), 'moveVector': Vector(0,2)} )
 
 	def update( self, frameTime, lifeTime ):
 		VerticalScrollingScene.update( self, frameTime, lifeTime )
