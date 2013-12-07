@@ -28,6 +28,8 @@ class Pluto( Player ):
 
 		self.sprite.add( config.spriteGroups['player'] )
 
+		config.player_vector = self.vector
+
 		# Controls
 		self.addControlDown( pygame.K_LEFT,  self.moveLeft )
 		self.addControlDown( pygame.K_RIGHT, self.moveRight )

@@ -85,7 +85,8 @@ class App( ):
 
 
     def addUpdateableObject( self, mode, obj ):
-        self.updateableObjects[mode].append( obj )
+        if obj not in self.updateableObjects[mode]:
+            self.updateableObjects[mode].append( obj )
 
     def addCollider( self, collider ):
         self.colliders.append( collider )

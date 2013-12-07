@@ -8,7 +8,7 @@
 
 # Import config
 import app.config as config
-config.title = "Pluto vs The Planets - 7d7g"
+config.settings['title'] = "Pluto vs The Planets - 7d7g"
 config.settings['screen_w'] = 1200
 config.settings['screen_h'] = 900
 config.settings['game_w'] = 1600
@@ -43,6 +43,11 @@ clock = pygame.time.Clock( )
 # -------- TEMPORARY --------
 config.sprites = pygame.sprite.LayeredUpdates( )
 config.spriteGroups['all'] = pygame.sprite.Group( )
+
+from app.vector import Vector
+config.game_offset = Vector(0, 0)
+config.frame_offset = Vector(2, 0)
+config.player_vector = Vector(0, 0)
 
 from game.world.mars import Mars
 app.setMode( 'game' )

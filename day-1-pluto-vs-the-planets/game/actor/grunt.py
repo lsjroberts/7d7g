@@ -53,7 +53,11 @@ class Grunt( AIActor, KillableActor ):
 		KillableActor.die( self )
 
 	def update( self, frameTime, lifeTime ):
+		self.vector.add( config.frame_offset )
 		AIActor.update( self, frameTime, lifeTime )
+
+		if self.vector.y > config.settings['screen_h'] * 2:
+			self.sprite.kill( )
 
 
 class Formation( UpdateableGameObject ):
@@ -70,6 +74,7 @@ class Formation( UpdateableGameObject ):
 
 	def update( self, frameTime, lifeTime ):
 		self.vector.add( self.movePattern.vector )
+		self.vector.add( config.frame_offset )
 		for grunt in self.grunts:
 			self.movePattern.move( grunt )
 
@@ -136,6 +141,8 @@ class CircleFormation( Formation ):
 	pass
 
 
+# ----------- Spiral Formation -----------
+# http://stackoverflow.com/questions/13894715/draw-equidistant-points-on-a-spiral
 class SpiralFormation( Formation ):
 	def __init__( self, numGrunts, vector, movePattern=None ):
 		if movePattern is None: movePattern = DirectionMovePattern( Vector(0,2) )
@@ -172,10 +179,10 @@ class SpiralFormation( Formation ):
 			i += 1
 
 	def update( self, frameTime, lifeTime ):
+		Formation.update( self, frameTime, lifeTime )
 		self.rotation += (frameTime / 1000) + 9.0
 		self.repositionGrunts( )
 
-		Formation.update( self, frameTime, lifeTime )
 
 class MovePattern( ):
 	pass

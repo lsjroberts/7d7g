@@ -6,8 +6,8 @@
 class Vector( ):
 
 	def __init__( self, x, y ):
-		self.x = x
-		self.y = y
+		self.x = float(x)
+		self.y = float(y)
 
 	def add( self, vector ):
 		self.x = self.x + vector.x
@@ -34,4 +34,4 @@ class Vector( ):
 		return v
 
 	def __str__( self ):
-		return 'Vector: %d, %d' % ( self.x, self.y )
+		return 'Vector: %.2f, %.2f' % ( self.x, self.y )
