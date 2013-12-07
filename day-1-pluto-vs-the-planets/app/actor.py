@@ -6,19 +6,22 @@
 # -------- Imports --------
 
 import pygame, config
+from app import UpdateableGameObject
 from event import EventListener, PygameEvent
 from vector import Vector
 
 
 # -------- Actor --------
 # Base abstract actor
-class Actor( ):
+class Actor( UpdateableGameObject ):
 
     # -------- Init --------
     # Constructor
     #
     # @return Actor
     def __init__( self ):
+        UpdateableGameObject.__init__( self )
+
         self.sprite = None
         self.vector = Vector( 0,0 )
 
@@ -41,9 +44,49 @@ class MoveableActor( Actor ):
     def move( self, vector ):
         self.moveVector = vector
 
+    def moveLeft( self ):
+        self.move( self.moveVector.add(
+            Vector( -self.speed, 0 )
+        ))
+
+    def moveRight( self ):
+        self.move( self.moveVector.add(
+            Vector( self.speed, 0 )
+        ))
+
+    def moveUp( self ):
+        self.move( self.moveVector.add(
+            Vector( 0, -self.speed )
+        ))
+
+    def moveDown( self ):
+        self.move( self.moveVector.add(
+            Vector( 0, self.speed )
+        ))
+
+    def stopLeft( self ):
+        self.move( self.moveVector.add(
+            Vector( self.speed, 0 )
+        ))
+
+    def stopRight( self ):
+        self.move( self.moveVector.add(
+            Vector( -self.speed, 0 )
+        ))
+
+    def stopUp( self ):
+        self.move( self.moveVector.add(
+            Vector( 0, self.speed )
+        ))
+
+    def stopDown( self ):
+        self.move( self.moveVector.add(
+            Vector( 0, -self.speed )
+        ))
+
     def update( self, frameTime, lifeTime ):
         self.vector = self.vector.add( self.moveVector )
-
+        print self.vector
         Actor.update( self, frameTime, lifeTime )
 
 
@@ -71,15 +114,21 @@ class ControllableActor( MoveableActor ):
     def setTargetVector( self, vector ):
         self.targetVector = vector
 
-    def addControlHold( self, key, callback ):
+    def addControl( self, key, callback, keyType ):
         self.controls.append({
-            'type': pygame.KEYDOWN,
+            'type': keyType,
             'key': key,
             'callback': callback
         })
 
+    def addControlDown( self, key, callback ):
+        self.addControl( key, callback, pygame.KEYDOWN )
+
+    def addControlUp( self, key, callback ):
+        self.addControl( key, callback, pygame.KEYUP )
+
     def update( self, frameTime, lifeTime ):
-        pass
+        MoveableActor.update( self, frameTime, lifeTime )
 
 
 # ----------- Actor Listener -----------

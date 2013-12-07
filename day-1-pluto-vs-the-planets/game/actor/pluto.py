@@ -19,34 +19,20 @@ class Pluto( Player ):
 
 		# Sprite
 		sprite = AnimatedSprite( 'player/pluto.png', vector )
-		sprite.addAnimationState( 'idle', 0, 3, 2 )
+		sprite.addAnimationState( 'idle', 0, 0, 100 )
 		sprite.setAnimationState( 'idle' )
 		self.setSprite( sprite )
 
 		# Controls
-		self.addControlHold(pygame.K_LEFT, self.moveLeft)
-		self.addControlHold(pygame.K_RIGHT, self.moveRight)
-		self.addControlHold(pygame.K_UP, self.moveUp)
-		self.addControlHold(pygame.K_DOWN, self.moveDown)
+		self.addControlDown(pygame.K_LEFT,  self.moveLeft)
+		self.addControlDown(pygame.K_RIGHT, self.moveRight)
+		self.addControlDown(pygame.K_UP,    self.moveUp)
+		self.addControlDown(pygame.K_DOWN,  self.moveDown)
 
-		self.moveVector = Vector( 0, 0 )
+		self.addControlUp(pygame.K_LEFT,  self.stopLeft)
+		self.addControlUp(pygame.K_RIGHT, self.stopRight)
+		self.addControlUp(pygame.K_UP,    self.stopUp)
+		self.addControlUp(pygame.K_DOWN,  self.stopDown)
 
-	def moveLeft( self ):
-		self.move( self.moveVector.add(
-			Vector( -self.speed, self.moveVector.y )
-		))
-
-	def moveRight( self ):
-		self.move( self.moveVector.add(
-			Vector( self.speed, self.moveVector.y )
-		))
-
-	def moveUp( self ):
-		self.move( self.moveVector.add(
-			Vector( self.moveVector.x, -self.speed )
-		))
-
-	def moveDown( self ):
-		self.move( self.moveVector.add(
-			Vector( self.moveVector.x, self.speed )
-		))
+		# Set default speed
+		self.speed = 6
