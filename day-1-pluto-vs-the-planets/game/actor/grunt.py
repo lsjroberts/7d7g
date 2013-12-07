@@ -26,7 +26,7 @@ c = Collider(
 	config.spriteGroups['player_bullet'],
 	gruntHitByBullet
 )
-c.killB = True
+# c.killB = True
 config.app.addCollider( c )
 
 # -------- Grunt --------
@@ -49,8 +49,8 @@ class Grunt( AIActor, KillableActor ):
 		self.fireChance = .1
 	
 	def die( self ):
+		Explosion( Vector(self.sprite.rect.centerx, self.sprite.rect.centery) )
 		KillableActor.die( self )
-		Explosion( self.vector.copy() )
 
 	def update( self, frameTime, lifeTime ):
 		AIActor.update( self, frameTime, lifeTime )
@@ -99,7 +99,36 @@ class SquareFormation( Formation ):
 			x += 1
 
 class DiamondFormation( Formation ):
-	pass
+	def __init__( self, numGrunts, vector, movePattern=None ):
+		if movePattern is None: movePattern = DirectionMovePattern( Vector(0,2) )
+		Formation.__init__( self, numGrunts, vector, movePattern )
+
+		# Take the square root of the number of grunts to get the length of
+		# each side.
+		sideLength = math.ceil( math.sqrt(self.numGrunts) )
+
+		spacingX = self.grunts[0].sprite.rect.width * 1
+		spacingY = self.grunts[0].sprite.rect.height * 1
+
+		x = 1
+		y = sideLength
+		i = 0
+		j = 0
+		for grunt in self.grunts:
+			if j == sideLength:
+				i += 1
+				y = sideLength + i
+				x = i + 1
+				j = 0
+
+			grunt.vector.add( Vector(
+				spacingX * (x - 1),
+				spacingY * (y - 1)
+			))
+
+			j += 1
+			x += 1
+			y -= 1
 
 
 class CircleFormation( Formation ):

@@ -18,10 +18,11 @@ class TimingScene( Scene, UpdateableGameObject ):
 
 		self.timingCallbacks = []
 
-	def addTimingCallback( self, time, callback ):
+	def addTimingCallback( self, time, callback, data ):
 		self.timingCallbacks.append({
 			'time': time,
-			'callback': callback
+			'callback': callback,
+			'data': data
 		})
 
 	def update( self, frameTime, lifeTime ):
@@ -29,5 +30,5 @@ class TimingScene( Scene, UpdateableGameObject ):
 
 		for callback in self.timingCallbacks:
 			if callback['time'] == seconds:
-				callback['callback']()
+				callback['callback'](callback['data'])
 				self.timingCallbacks.remove(callback)

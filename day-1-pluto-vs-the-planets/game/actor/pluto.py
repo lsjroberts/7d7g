@@ -112,3 +112,6 @@ class Bullet( Actor ):
 
 	def update( self, frameTime, lifeTime ):
 		self.vector.add( self.moveVector )
+
+		if self.vector.y < 0:
+			self.sprite.kill()

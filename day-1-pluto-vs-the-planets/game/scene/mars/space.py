@@ -10,8 +10,7 @@ from app.vector import Vector
 from game.scene.scrolling import VerticalScrollingScene
 from game.scene.timing import TimingScene
 from game.actor.pluto import Pluto
-from game.actor.grunt import SquareFormation
-from game.actor.grunt import DirectionMovePattern
+from game.actor.grunt import SquareFormation, DiamondFormation, DirectionMovePattern
 
 # ----------- Mars Scene -----------
 # 
@@ -34,18 +33,16 @@ class Space( VerticalScrollingScene, TimingScene ):
 		pluto.vector.y = config.settings['screen_h'] - (pluto.sprite.rect.height * 1.5)
 		self.addActor( pluto )
 
-		def f1():
-			SquareFormation( 9, Vector(100,0), DirectionMovePattern(Vector(1,2)) )
+		def addSquare(data):
+			SquareFormation( data['num'], data['vector'], DirectionMovePattern(data['moveVector']) )
 
-		def f2():
-			SquareFormation( 16, Vector(900,0), DirectionMovePattern(Vector(-2,2)) )
+		def addDiamond(data):
+			DiamondFormation( data['num'], data['vector'], DirectionMovePattern(data['moveVector']) )
 
-		def f3():
-			SquareFormation( 9, Vector(300,0), DirectionMovePattern(Vector(0,2)) )
-
-		self.addTimingCallback( 2, f1 )
-		self.addTimingCallback( 4, f2 )
-		self.addTimingCallback( 4, f3 )
+		self.addTimingCallback( 2, addSquare, {'num': 9,  'vector': Vector(100, -100), 'moveVector': Vector(1,2)} )
+		self.addTimingCallback( 4, addSquare, {'num': 16, 'vector': Vector(900, -200), 'moveVector': Vector(-2,2)} )
+		self.addTimingCallback( 4, addDiamond, {'num': 9,  'vector': Vector(300, -100), 'moveVector': Vector(0,2)} )
+		self.addTimingCallback( 7, addDiamond, {'num': 25,  'vector': Vector(400, -300), 'moveVector': Vector(0,2)} )
 
 	def update( self, frameTime, lifeTime ):
 		VerticalScrollingScene.update( self, frameTime, lifeTime )
