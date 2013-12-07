@@ -41,9 +41,13 @@ clock = pygame.time.Clock( )
 config.sprites = pygame.sprite.LayeredUpdates( )
 config.spriteGroups['all'] = pygame.sprite.Group( )
 
-from game.world.level1 import Level1
-app.setMode( 'game' )
-app.setWorld( Level1() )
+from game.actor.pluto import Pluto
+player = Pluto( )
+print player
+
+# from game.world.level1 import Level1
+# app.setMode( 'game' )
+# app.setWorld( Level1() )
 # ------ ENDTEMPORARY -------
 
 

@@ -93,7 +93,6 @@ class App( ):
 class AppListener( EventListener ):
 
     def notify( self, event ):
-
         if isinstance( event, PygameEvent ):
             if pygame.QUIT == event.data.type:
                 config.app.running = False

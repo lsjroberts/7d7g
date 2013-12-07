@@ -5,6 +5,8 @@
 
 # -------- Imports --------
 
+import pygame, config
+from event import EventListener, PygameEvent
 from vector import Vector
 
 
@@ -31,6 +33,11 @@ class Actor( ):
 # An actor that can be repositioned after instantiation.
 class MoveableActor( Actor ):
 
+    def __init__( self ):
+        Actor.__init__( self )
+
+        self.moveVector = Vector( 0, 0 )
+
     def move( self, vector ):
         self.moveVector = vector
 
@@ -44,6 +51,15 @@ class MoveableActor( Actor ):
 # An actor that can be positioned.
 class ControllableActor( MoveableActor ):
 
+    def __init__( self ):
+        MoveableActor.__init__( self )
+
+        self.speed = 0
+        self.targetVector = Vector( 0, 0 )
+        self.controls = []
+
+        config.app.events.registerListener( ActorListener(self) )
+
     def setSpeed( self, speed ):
         self.speed = speed
 
@@ -55,5 +71,26 @@ class ControllableActor( MoveableActor ):
     def setTargetVector( self, vector ):
         self.targetVector = vector
 
+    def addControlHold( self, key, callback ):
+        self.controls.append({
+            'type': pygame.KEYDOWN,
+            'key': key,
+            'callback': callback
+        })
+
     def update( self, frameTime, lifeTime ):
         pass
+
+
+# ----------- Actor Listener -----------
+# Listener with associated actor
+class ActorListener( EventListener ):
+
+    def __init__( self, actor ):
+        self.actor = actor
+
+    def notify( self, event ):
+        if isinstance( event, PygameEvent ):
+            for control in self.actor.controls:
+                if control['type'] == event.data.type and control['key'] == event.data.key:
+                    control['callback']()
