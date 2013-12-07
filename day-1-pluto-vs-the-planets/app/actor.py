@@ -131,6 +131,13 @@ class ControllableActor( MoveableActor ):
         MoveableActor.update( self, frameTime, lifeTime )
 
 
+# ----------- AI Actor -----------
+# Actor controlled by the computer
+class AIActor( MoveableActor ):
+    pass
+
+
+
 # ----------- Actor Listener -----------
 # Listener with associated actor
 class ActorListener( EventListener ):
