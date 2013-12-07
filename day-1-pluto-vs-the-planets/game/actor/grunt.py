@@ -38,7 +38,7 @@ class Grunt( AIActor, KillableActor ):
 
 		# Sprite
 		sprite = AnimatedSprite( 'mars/grunt.png', vector )
-		sprite.addAnimationState( 'idle', 0, 0, 100 )
+		sprite.addAnimationState( 'idle', 0, 3, 4 )
 		sprite.setAnimationState( 'idle' )
 		self.setSprite( sprite )
 

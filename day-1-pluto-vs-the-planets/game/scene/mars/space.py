@@ -49,9 +49,9 @@ class Space( VerticalScrollingScene, HorizontalScrollingScene, TimingScene ):
 		self.addTimingCallback(  4, addDiamond, {'num': 16, 'vector': Vector(.9*w, -200), 'moveVector': Vector(-2,2)} )
 		self.addTimingCallback(  4, addSquare,  {'num':  9, 'vector': Vector(.3*w, -100), 'moveVector': Vector(0,2)} )
 		self.addTimingCallback(  7, addSpiral,  {'num': 30, 'vector': Vector(.4*w, -300), 'moveVector': Vector(0,2)} )
-		self.addTimingCallback( 15, addSquare, {'num': 90, 'vector': Vector(.4*w, -400), 'moveVector': Vector(0,4)} )
-		self.addTimingCallback( 20, addSpiral, {'num': 30, 'vector': Vector(.2*w, -300), 'moveVector': Vector(2,2)} )
-		self.addTimingCallback( 20, addSpiral, {'num': 30, 'vector': Vector(.6*w, -300), 'moveVector': Vector(-2,2)} )
+		self.addTimingCallback( 15, addSquare,  {'num': 90, 'vector': Vector(.4*w, -400), 'moveVector': Vector(0,4)} )
+		self.addTimingCallback( 20, addSpiral,  {'num': 30, 'vector': Vector(.2*w, -300), 'moveVector': Vector(2,2)} )
+		self.addTimingCallback( 20, addSpiral,  {'num': 30, 'vector': Vector(.6*w, -300), 'moveVector': Vector(-2,2)} )
 
 	def update( self, frameTime, lifeTime ):
 		VerticalScrollingScene.update( self, frameTime, lifeTime )
