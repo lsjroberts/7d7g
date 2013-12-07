@@ -74,3 +74,9 @@ class Event( ):
 # Generic pygame event
 class PygameEvent( Event ):
     name = 'pygame'
+
+
+# ----------- Collision Event -----------
+# An event when two sprites collide
+class CollisionEvent( Event ):
+    name = 'collision'

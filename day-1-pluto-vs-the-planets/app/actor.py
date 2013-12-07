@@ -27,6 +27,7 @@ class Actor( UpdateableGameObject ):
 
     def setSprite( self, sprite ):
         self.sprite = sprite
+        sprite.setActor( self )
 
     def update( self, frameTime, lifeTime ):
         self.sprite.vector = self.vector
@@ -136,6 +137,19 @@ class ControllableActor( MoveableActor ):
 class AIActor( MoveableActor ):
     pass
 
+
+class KillableActor( Actor ):
+
+    def setHealth( self, health ):
+        self.health = health
+
+    def takeDamage( self, damage ):
+        self.health -= damage
+        if self.health < 0:
+            self.die( )
+
+    def die( self ):
+        self.sprite.kill( )
 
 
 # ----------- Actor Listener -----------

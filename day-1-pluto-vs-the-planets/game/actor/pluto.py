@@ -4,13 +4,15 @@
 
 
 # -------- Imports --------
-import pygame, math
+import pygame, math, app.config as config
 
 from app.actor import Actor
 from app.player import Player
 from app.sprite import StaticSprite, AnimatedSprite
 from app.vector import Vector
 
+config.spriteGroups['player'] = pygame.sprite.Group( )
+config.spriteGroups['player_bullet'] = pygame.sprite.Group( )
 
 # ----------- Pluto -----------
 #
@@ -23,6 +25,8 @@ class Pluto( Player ):
 		sprite.addAnimationState( 'idle', 0, 0, 100 )
 		sprite.setAnimationState( 'idle' )
 		self.setSprite( sprite )
+
+		self.sprite.add( config.spriteGroups['player'] )
 
 		# Controls
 		self.addControlDown( pygame.K_LEFT,  self.moveLeft )
@@ -45,6 +49,8 @@ class Pluto( Player ):
 		self.gunFireRate = 5
 		self.gunCoolDown = 0
 		self.gunBulletSpeed = 40
+
+		self.isFiringBeam = False
 
 	def shootGuns( self ):
 		self.isFiringGuns = True
@@ -90,6 +96,8 @@ class Bullet( Actor ):
 		Actor.__init__( self )
 
 		self.sprite = StaticSprite( 'player/bullet.png', vector )
+
+		self.sprite.add( config.spriteGroups['player_bullet'] )
 
 		self.vector = vector.subtract( Vector(
 			self.sprite.rect.width / 2,

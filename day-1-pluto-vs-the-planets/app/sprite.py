@@ -22,7 +22,12 @@ class Sprite( pygame.sprite.Sprite, UpdateableGameObject ):
         self.groups = config.sprites, config.spriteGroups['all']
         pygame.sprite.Sprite.__init__( self, self.groups )
 
+        self.actor = None
+        
         UpdateableGameObject.__init__( self )
+
+    def setActor( self, actor ):
+        self.actor = actor
 
 
 # -------- Static Sprite --------
@@ -150,3 +155,29 @@ class AnimatedSprite( Sprite ):
     # ----------- Update -----------
     def update( self, frameTime, lifeTime ):
         self.updateAnimation( lifeTime )
+
+
+
+class PlayOnceAnimatedSprite( AnimatedSprite ):
+    def updateAnimation( self, lifeTime ):
+        # Get the current state
+        state = self.states[self.state]
+
+        # Update the rect vector position
+        self.rect.x, self.rect.y = self.vector.x, self.vector.y
+
+        # Check if enough time has passed since the last update for this state
+        if lifeTime - self.lastUpdate > state['delay']:
+            self.frame += 1
+
+            # Wrap the frame between the state start and end frame
+            if self.frame < state['start']: self.frame = state['end']
+            if self.frame > state['end']:
+                self.kill( )
+                return
+
+            # Change the sprite image to that of the current frame
+            self.image = self.images[self.frame]
+
+            # Store the update time
+            self.lastUpdate = lifeTime

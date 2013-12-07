@@ -29,5 +29,9 @@ class Vector( ):
 		self.y = self.y / vector.y
 		return self
 
+	def copy( self ):
+		v = Vector( self.x, self.y )
+		return v
+
 	def __str__( self ):
 		return 'Vector: %d, %d' % ( self.x, self.y )

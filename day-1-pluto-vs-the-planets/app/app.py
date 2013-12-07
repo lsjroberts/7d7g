@@ -33,6 +33,8 @@ class App( ):
             'menu': []
         }
 
+        self.colliders = []
+
     # -------- Tick --------
     # Process a single tick of the game loop.
     #
@@ -60,6 +62,10 @@ class App( ):
         for obj in self.updateableObjects['game']:
             obj.update( int(frameTime), int(lifeTime) )
 
+        # Run checks on colliders
+        for collider in self.colliders:
+            collider.check( )
+
         # Draw sprites
         rects = config.sprites.draw( config.screen )
 
@@ -80,6 +86,9 @@ class App( ):
 
     def addUpdateableObject( self, mode, obj ):
         self.updateableObjects[mode].append( obj )
+
+    def addCollider( self, collider ):
+        self.colliders.append( collider )
 
     def setMode( self, mode ):
         self.mode = mode

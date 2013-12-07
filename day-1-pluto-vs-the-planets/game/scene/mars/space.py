@@ -10,6 +10,7 @@ from app.vector import Vector
 from game.scene.scrolling import VerticalScrollingScene
 from game.actor.pluto import Pluto
 from game.actor.grunt import SquareFormation
+from game.actor.grunt import DirectionMovePattern
 
 # ----------- Mars Scene -----------
 # 
@@ -31,9 +32,14 @@ class Space( VerticalScrollingScene ):
 		pluto.vector.y = config.settings['screen_h'] - (pluto.sprite.rect.height * 1.5)
 		self.addActor( pluto )
 
-		formation = SquareFormation( 9, Vector(
-			100,
-			100
-		))
+		formation = SquareFormation( 9, Vector(100,100), DirectionMovePattern(Vector(2,4)) )
+		for grunt in formation.grunts:
+			self.addActor( grunt )
+
+		formation = SquareFormation( 16, Vector(900,-100), DirectionMovePattern(Vector(-4,4)) )
+		for grunt in formation.grunts:
+			self.addActor( grunt )
+
+		formation = SquareFormation( 9, Vector(300,0), DirectionMovePattern(Vector(0,4)) )
 		for grunt in formation.grunts:
 			self.addActor( grunt )
