@@ -85,8 +85,8 @@ class MoveableActor( Actor ):
         ))
 
     def update( self, frameTime, lifeTime ):
-        self.vector = self.vector.add( self.moveVector )
-        print self.vector
+        self.vector.add( self.moveVector )
+        
         Actor.update( self, frameTime, lifeTime )
 
 
