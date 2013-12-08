@@ -59,7 +59,7 @@ class App( ):
         config.screen.fill( config.settings['screen_fill'] )
 
         # Update sprites
-        print len(self.updateableObjects['game'])
+        # print len(self.updateableObjects['game'])
         for obj in self.updateableObjects['game']:
             obj.update( int(frameTime), int(lifeTime) )
 

@@ -136,7 +136,7 @@ class AnimatedSprite( Sprite ):
         state = self.states[self.state]
 
         # Update the rect vector position
-        self.rect.x, self.rect.y = self.vector.x, self.vector.y
+        self.rect.x, self.rect.y = self.vector.x, self.vector.y - self.rect.height
 
         # Check if enough time has passed since the last update for this state
         if lifeTime - self.lastUpdate > state['delay']:

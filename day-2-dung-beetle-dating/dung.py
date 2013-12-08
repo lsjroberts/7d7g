@@ -11,6 +11,7 @@ import app.config as config
 config.settings['title'] = "Dung Beetle Dating"
 config.settings['screen_w'] = 1200
 config.settings['screen_h'] = 900
+config.settings['screen_fill'] = (140,180,220)
 
 # Initialise pygame
 import pygame
@@ -43,9 +44,9 @@ clock = pygame.time.Clock( )
 config.sprites = pygame.sprite.LayeredUpdates( )
 config.spriteGroups['all'] = pygame.sprite.Group( )
 
-# from game.world.mars import Mars
-# app.setMode( 'game' )
-# app.setWorld( Mars() )
+from game.world.dirt import Dirt
+app.setMode( 'game' )
+app.setWorld( Dirt() )
 # ------ ENDTEMPORARY -------
 
 
