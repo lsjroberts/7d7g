@@ -116,4 +116,4 @@ class Bullet( Actor ):
 		self.vector.add( self.moveVector )
 
 		if self.vector.y < 0 - self.sprite.rect.height:
-			self.sprite.kill()
+			self.kill()

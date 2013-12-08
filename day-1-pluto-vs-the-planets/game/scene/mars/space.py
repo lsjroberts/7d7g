@@ -49,9 +49,26 @@ class Space( VerticalScrollingScene, HorizontalScrollingScene, TimingScene ):
 		self.addTimingCallback(  4, addDiamond, {'num': 16, 'vector': Vector(.9*w, -200), 'moveVector': Vector(-2,2)} )
 		self.addTimingCallback(  4, addSquare,  {'num':  9, 'vector': Vector(.3*w, -100), 'moveVector': Vector(0,2)} )
 		self.addTimingCallback(  7, addSpiral,  {'num': 30, 'vector': Vector(.4*w, -300), 'moveVector': Vector(0,2)} )
-		self.addTimingCallback( 15, addSquare,  {'num': 90, 'vector': Vector(.4*w, -400), 'moveVector': Vector(0,4)} )
+		self.addTimingCallback( 15, addSquare,  {'num': 40, 'vector': Vector(.4*w, -400), 'moveVector': Vector(0,4)} )
 		self.addTimingCallback( 20, addSpiral,  {'num': 30, 'vector': Vector(.2*w, -300), 'moveVector': Vector(2,2)} )
 		self.addTimingCallback( 20, addSpiral,  {'num': 30, 'vector': Vector(.6*w, -300), 'moveVector': Vector(-2,2)} )
+		self.addTimingCallback( 22, addDiamond, {'num':  4, 'vector': Vector(.2*w, -100), 'moveVector': Vector(0,2)} )
+		self.addTimingCallback( 26, addDiamond, {'num':  9, 'vector': Vector(.4*w, -100), 'moveVector': Vector(0,1)} )
+		self.addTimingCallback( 27, addSquare,  {'num':  9, 'vector': Vector(.3*w, -100), 'moveVector': Vector(0,3)} )
+		self.addTimingCallback( 33, addSpiral,  {'num': 16, 'vector': Vector(.7*w, -300), 'moveVector': Vector(-3,3)} )
+
+		j = 1.0
+		for i in range(36, 44):
+			self.addTimingCallback( i, addDiamond, {'num':  4, 'vector': Vector((j/10)*w, -100), 'moveVector': Vector(0,3)} )
+			j += 1
+
+		j = 1.0
+		for i in range(45, 54):
+			self.addTimingCallback( i, addSquare, {'num':  2, 'vector': Vector((j/10)*w, -100), 'moveVector': Vector(0,12)} )
+			self.addTimingCallback( i, addSquare, {'num':  2, 'vector': Vector((1-(j/10))*w, -100), 'moveVector': Vector(0,12)} )
+			j += 1
+
+		self.addTimingCallback( 60, addSpiral,  {'num': 60, 'vector': Vector(.5*w, -400), 'moveVector': Vector(0,1)} )
 
 	def update( self, frameTime, lifeTime ):
 		VerticalScrollingScene.update( self, frameTime, lifeTime )

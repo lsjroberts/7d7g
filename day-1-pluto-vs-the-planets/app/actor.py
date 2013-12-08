@@ -29,6 +29,10 @@ class Actor( UpdateableGameObject ):
         self.sprite = sprite
         sprite.setActor( self )
 
+    def kill( self ):
+        self.sprite.kill( )
+        self.removeGameObject( )
+
     def update( self, frameTime, lifeTime ):
         self.sprite.vector = self.vector
 
@@ -149,7 +153,7 @@ class KillableActor( Actor ):
             self.die( )
 
     def die( self ):
-        self.sprite.kill( )
+        self.kill( )
 
 
 # ----------- Actor Listener -----------

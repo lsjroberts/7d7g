@@ -33,5 +33,15 @@ class Vector( ):
 		v = Vector( self.x, self.y )
 		return v
 
+	def unit( self ):
+		u = self.copy( )
+		if abs(u.x) > abs(u.y):
+			u.y = u.y / u.x
+			u.x = u.x / u.x
+		else:
+			u.x = u.x / u.y
+			u.y = u.y / u.y
+		return u
+
 	def __str__( self ):
 		return 'Vector: %.2f, %.2f' % ( self.x, self.y )

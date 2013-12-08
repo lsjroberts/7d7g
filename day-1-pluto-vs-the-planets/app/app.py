@@ -59,6 +59,7 @@ class App( ):
         config.screen.fill( config.settings['screen_fill'] )
 
         # Update sprites
+        print len(self.updateableObjects['game'])
         for obj in self.updateableObjects['game']:
             obj.update( int(frameTime), int(lifeTime) )
 
@@ -88,6 +89,10 @@ class App( ):
         if obj not in self.updateableObjects[mode]:
             self.updateableObjects[mode].append( obj )
 
+    def removeUpdateableObject( self, mode, obj ):
+        if obj in self.updateableObjects[mode]:
+            self.updateableObjects[mode].remove( obj )
+
     def addCollider( self, collider ):
         self.colliders.append( collider )
 
@@ -115,6 +120,9 @@ class UpdateableGameObject( ):
 
     def __init__( self ):
         config.app.addUpdateableObject( 'game', self )
+
+    def removeGameObject( self ):
+        config.app.removeUpdateableObject( 'game', self )
 
     # ----------- Update -----------
     # 
